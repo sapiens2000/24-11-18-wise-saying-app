@@ -48,7 +48,12 @@ class App {
                     WiseSaying cur = wiseSayingMap.get(i);
                     System.out.printf("%d / %s / %s\n", cur.getId(), cur.getAuthor(), cur.getWiseSaying());
                 }
+            }else if(opt.startsWith("삭제")){
+                String[] tmp = opt.split("=");
+                int targetId = Integer.parseInt(tmp[tmp.length-1]);
 
+                wiseSayingMap.remove(targetId);
+                System.out.printf("%d번 명언이 삭제되었습니다.\n", targetId);
             }
         }
     }
