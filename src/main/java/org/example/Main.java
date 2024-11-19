@@ -52,9 +52,14 @@ class App {
                 String[] tmp = opt.split("=");
                 int targetId = Integer.parseInt(tmp[tmp.length-1]);
 
-                wiseSayingMap.remove(targetId);
-                System.out.printf("%d번 명언이 삭제되었습니다.\n", targetId);
+                if(wiseSayingMap.get(targetId) == null){
+                    System.out.printf("%d번 명언은 존재하지 않습니다.\n", targetId);
+                }else {
+                    wiseSayingMap.remove(targetId);
+                    System.out.printf("%d번 명언이 삭제되었습니다.\n", targetId);
+                }
             }
         }
+
     }
 }
