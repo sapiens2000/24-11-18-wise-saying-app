@@ -3,6 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -18,6 +19,11 @@ public class Main {
             if (opt.equals("종료")) {
                 status = false;
                 break;
+            }else if(opt.equals("등록")){
+                System.out.print("명언 : ");
+                String wiseSaying = br.readLine();
+                System.out.print("작가 : ");
+                String author = br.readLine();
             }
         }
     }
