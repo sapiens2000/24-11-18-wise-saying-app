@@ -58,8 +58,22 @@ class App {
                     wiseSayingMap.remove(targetId);
                     System.out.printf("%d번 명언이 삭제되었습니다.\n", targetId);
                 }
+            }else if(opt.startsWith("수정")){
+                String[] tmp = opt.split("=");
+                WiseSaying target = wiseSayingMap.get(Integer.parseInt(tmp[tmp.length-1]));
+
+                System.out.printf("명언(기존) : %s\n", target.getWiseSaying());
+                System.out.print("명언 : ");
+                String newWiseSaying = br.readLine();
+                System.out.printf("작가(기존) : %s\n", target.getAuthor());
+                System.out.print("작가 : ");
+                String newAuthor = br.readLine();
+
+                target.setWiseSaying(newWiseSaying);
+                target.setAuthor(newAuthor);
             }
         }
 
+        br.close();
     }
 }
