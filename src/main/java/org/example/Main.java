@@ -1,18 +1,26 @@
 package org.example;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        App app = new App();
+        app.run();
+    }
+}
+
+class App {
+    public void run() throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-
-        System.out.println("== 명언 앱 ==");
         int wiseSayingNum = 1;
         boolean status = true;
+
+        HashMap<Integer, WiseSaying> wiseSayingMap = new LinkedHashMap<>();
+
+        System.out.println("== 명언 앱 ==");
 
         while(status) {
             System.out.print("명령) ");
@@ -26,7 +34,21 @@ public class Main {
                 System.out.print("작가 : ");
                 String author = br.readLine();
 
+                wiseSayingMap.put(wiseSayingNum, new WiseSaying(wiseSayingNum, author, wiseSaying));
                 System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSayingNum++);
+
+            }else if(opt.equals("목록")){
+                System.out.println("번호 / 작가 / 명언");
+
+                // id 가 계속 증가만 한다고 가정했을때만 가능
+                for(int i=wiseSayingNum;i>0;i--){
+                    if(wiseSayingMap.get(i) == null){
+                        continue;
+                    }
+                    WiseSaying cur = wiseSayingMap.get(i);
+                    System.out.printf("%d / %s / %s\n", cur.getId(), cur.getAuthor(), cur.getWiseSaying());
+                }
+
             }
         }
     }
