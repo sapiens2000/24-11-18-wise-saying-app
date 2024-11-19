@@ -36,8 +36,28 @@ class App {
             String opt = br.readLine();
             if (opt.equals("종료")) {
                 status = false;
-
                 break;
+            } else if(opt.equals("빌드")){
+                File jsonDataFile = new File(basePath + "data.json");
+                System.out.println(jsonDataFile);
+                bw = new BufferedWriter(new FileWriter(jsonDataFile));
+
+                bw.write("[\n");
+                for(int key: wiseSayingMap.keySet()){
+                    WiseSaying cur = wiseSayingMap.get(key);
+
+
+                    // 데이터 json 구조로 생성
+                    String jsonData = "\t{\n"
+                            + "\t\t\"id\" : " + cur.getId() + ",\n"
+                            + "\t\t\"content\" : \"" + cur.getWiseSaying() + "\",\n"
+                            + "\t\t\"author\" : \"" + cur.getAuthor() + "\"\n"
+                            + "\t},";
+                    bw.write(jsonData);
+                }
+                bw.write("\n]");
+                bw.close();
+                System.out.println("data.json 파일의 내용이 갱신되었습니다.");
             } else if (opt.equals("등록")) {
                 System.out.print("명언 : ");
                 String wiseSaying = br.readLine();
@@ -89,7 +109,7 @@ class App {
                 System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSayingNum++);
             } else if (opt.equals("목록")) {
                 System.out.println("번호 / 작가 / 명언");
-
+                System.out.println("----------------------");
                 // id 가 계속 증가만 한다고 가정했을때만 가능
                 for (int i = wiseSayingNum; i > 0; i--) {
                     if (wiseSayingMap.get(i) == null) {
@@ -154,13 +174,12 @@ class App {
         wiseSayingMap = new LinkedHashMap<>();
         File basePath = new File(this.basePath);
 
-
         for (String fileName : basePath.list()) {
             // null 아닐 경우 데이터 읽기
             if(fileName != null){
                 File inputData = new File(basePath + "\\" + fileName);
                 br = new BufferedReader(new FileReader(inputData));
-                if(fileName.endsWith("json")){
+                if(fileName.endsWith("json") && !fileName.startsWith("data")){
                     StringBuilder sb;
                     // id 읽기
                     String data = br.readLine();
@@ -192,6 +211,5 @@ class App {
             }
             br.close();
         }
-
     }
 }
