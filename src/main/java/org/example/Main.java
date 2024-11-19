@@ -9,8 +9,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("== 명언 앱 ==");
 
+        System.out.println("== 명언 앱 ==");
+        int wiseSayingNum = 1;
         boolean status = true;
 
         while(status) {
@@ -24,6 +25,8 @@ public class Main {
                 String wiseSaying = br.readLine();
                 System.out.print("작가 : ");
                 String author = br.readLine();
+
+                System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSayingNum);
             }
         }
     }
